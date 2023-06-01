@@ -5,6 +5,8 @@ import pretty from 'pretty' // add this import
 
 export function App() {
   const [htmlContent, setHtmlContent] = useState('')
+  const [prettyHtml, setPrettyHtml] = useState('')
+  const [showPretty, setShowPretty] = useState(true)
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0]
@@ -15,8 +17,9 @@ export function App() {
 
       try {
         const result = await mammoth.convertToHtml({ arrayBuffer })  
-        const html = pretty(result.value) // use pretty to format the HTML
+        const html = result.value 
         setHtmlContent(html)
+        setPrettyHtml(pretty(html))
       } catch (error) {
         console.error('Error converting file:', error)
       }
@@ -35,12 +38,17 @@ export function App() {
       <div class="card">
         <input type="file" onChange={handleFileChange} />
         {htmlContent && (
-          <textarea
-            value={htmlContent}
-            readOnly
-            rows={10}
-            style={{ width: '100%' }}
-          />
+          <>
+            <button onClick={() => setShowPretty(!showPretty)}>
+              Toggle Compressed HTML
+            </button>
+            <textarea
+              value={showPretty ? prettyHtml : htmlContent}
+              readOnly
+              rows={10}
+              style={{ width: '100%' }}
+            />
+          </>
         )}
       </div>
     </>
