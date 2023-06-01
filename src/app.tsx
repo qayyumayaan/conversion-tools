@@ -1,33 +1,40 @@
 import { useState } from 'preact/hooks'
-import preactLogo from './assets/preact.svg'
-import viteLogo from '/vite.svg'
 import './app.css'
+import mammoth from 'mammoth'
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const [htmlContent, setHtmlContent] = useState('')
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0]
+    const fileReader = new FileReader()
+
+    fileReader.onload = async (e) => {
+      const arrayBuffer = e.target.result
+
+      try {
+        const result = await mammoth.extractRawText({ arrayBuffer })
+        const html = result.value
+        setHtmlContent(html)
+      } catch (error) {
+        console.error('Error converting file:', error)
+      }
+    }
+
+    fileReader.onerror = (e) => {
+      console.error('Error reading file:', e.target.error)
+    }
+
+    fileReader.readAsArrayBuffer(file)
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
-      </div>
-      <h1>Vite + Preact</h1>
+      <h1>Docx to HTML</h1>
       <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/app.tsx</code> and save to test HMR
-        </p>
+        <input type="file" onChange={handleFileChange} />
+        {htmlContent && <div dangerouslySetInnerHTML={{ __html: htmlContent }} />}
       </div>
-      <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p>
     </>
   )
 }
