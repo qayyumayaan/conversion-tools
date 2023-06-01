@@ -13,7 +13,7 @@ export function App() {
       const arrayBuffer = e.target.result
 
       try {
-        const result = await mammoth.extractRawText({ arrayBuffer })
+        const result = await mammoth.convertToHtml({ arrayBuffer })  // Changed method to convertToHtml
         const html = result.value
         setHtmlContent(html)
       } catch (error) {
@@ -33,7 +33,14 @@ export function App() {
       <h1>Docx to HTML</h1>
       <div class="card">
         <input type="file" onChange={handleFileChange} />
-        {htmlContent && <div dangerouslySetInnerHTML={{ __html: htmlContent }} />}
+        {htmlContent && (
+          <textarea
+            value={htmlContent}
+            readOnly
+            rows={10}
+            style={{ width: '100%' }}
+          />
+        )}
       </div>
     </>
   )
