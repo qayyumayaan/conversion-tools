@@ -1,61 +1,39 @@
 import { useState } from 'preact/hooks'
 import './app.css'
-import mammoth from 'mammoth'
-import pretty from 'pretty'
+import DocxToHtml from './DocxToHtml'
 
 export function App() {
-  const [htmlContent, setHtmlContent] = useState('')
-  const [prettyHtml, setPrettyHtml] = useState('')
-  const [showPretty, setShowPretty] = useState(true)
+  const [activeApp, setActiveApp] = useState('app')
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0]
-    const fileReader = new FileReader()
-
-    fileReader.onload = async (e) => {
-      const arrayBuffer = e.target.result
-
-      try {
-        const result = await mammoth.convertToHtml({ arrayBuffer })  
-        const html = result.value 
-        setHtmlContent(html)
-        setPrettyHtml(pretty(html))
-      } catch (error) {
-        console.error('Error converting file:', error)
-      }
-    }
-
-    fileReader.onerror = (e) => {
-      console.error('Error reading file:', e.target.error)
-    }
-
-    fileReader.readAsArrayBuffer(file)
+  const handleAppChange = (event) => {
+    setActiveApp(event.target.value)
   }
 
   return (
     <>
-      <h1>Docx to HTML</h1>
-      <p>Use this tool to convert any DOCX file to an HTML to use in your blog. No data is collected. </p>
-      <div class="card">
-        <div className="file-upload-button" onChange={handleFileChange}>
-          <input type="file" id="file" style={{ display: 'none' }} />
-          <label for="file">Upload File</label>
-        </div>
-        {htmlContent && (
-          <>
-            <button className="toggle-button" onClick={() => setShowPretty(!showPretty)}>
-              Toggle Compressed HTML
-            </button>
-            <div className="textarea-container">
-              <textarea
-                value={showPretty ? prettyHtml : htmlContent}
-                readOnly
-                rows={10}
-                style={{ width: '100%' }}
-              />
-            </div>
-          </>
+      <h1>{
+        activeApp === 'app' ? 'Conversion Tools' : 'Docx to HTML'
+      }</h1>
+
+      {activeApp === 'app' ? (
+          // <h2>This is the App page</h2>
+          /* Replace this with your App component content */
+          <p>Use this tool to convert a number of items for free. No uploaded files are collected.</p>
+        ) : (
+          <DocxToHtml />
         )}
+
+
+      <div className="card">
+        <div className="app-switcher">
+          <label htmlFor="app-select">Select App: </label>
+          <select id="app-select" value={activeApp} onChange={handleAppChange}>
+            <option value="app">Home</option>
+            <option value="docxToHtml">Docx to HTML</option>
+          </select>
+        </div>
+
+
       </div>
     </>
   )
