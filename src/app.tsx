@@ -9,19 +9,26 @@ export function App() {
     setActiveApp(event.target.value)
   }
 
+  var options = [
+    { key: 'app', title: 'Conversion Tools' },
+    { key: 'DocxToHtml', title: 'DOCX to HTML' },
+    { key: 'template', title: 'Template'},
+  ];
+
   return (
     <>
-      <h1>{
-        activeApp === 'app' ? 'Conversion Tools' : 'Docx to HTML'
-      }</h1>
+      <h1>
+        {options.map(option => (
+          option.key === activeApp ? option.title : null
+        ))}
+      </h1>
+
 
       {activeApp === 'app' ? (
-          // <h2>This is the App page</h2>
-          /* Replace this with your App component content */
           <p>Use this tool to convert a number of items for free. No uploaded files are collected.</p>
-        ) : (
-          <DocxToHtml />
-        )}
+          ) : (
+            <DocxToHtml />
+      )}
 
 
       <div className="card">
@@ -29,7 +36,8 @@ export function App() {
           <label htmlFor="app-select">Select App: </label>
           <select id="app-select" value={activeApp} onChange={handleAppChange}>
             <option value="app">Home</option>
-            <option value="docxToHtml">Docx to HTML</option>
+            <option value="DocxToHtml">Docx to HTML</option>
+            <option value="template">Template</option>
           </select>
         </div>
 
