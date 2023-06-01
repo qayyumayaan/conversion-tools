@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "mammoth": "^1.6.0",
-    "preact": "^10.13.1"
+    "preact": "^10.13.1",
+    "pretty": "^2.0.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",

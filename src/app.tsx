@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks'
 import './app.css'
 import mammoth from 'mammoth'
+import pretty from 'pretty' // add this import
 
 export function App() {
   const [htmlContent, setHtmlContent] = useState('')
@@ -13,8 +14,8 @@ export function App() {
       const arrayBuffer = e.target.result
 
       try {
-        const result = await mammoth.convertToHtml({ arrayBuffer })  // Changed method to convertToHtml
-        const html = result.value
+        const result = await mammoth.convertToHtml({ arrayBuffer })  
+        const html = pretty(result.value) // use pretty to format the HTML
         setHtmlContent(html)
       } catch (error) {
         console.error('Error converting file:', error)
