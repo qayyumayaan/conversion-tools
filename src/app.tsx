@@ -44,6 +44,10 @@ export function App() {
 
 
       </div>
+
+      <footer>        
+        <p>Check me out at <a href="https://qayyumayaan.dev/" class="text-white">my website</a>. This site uses Google Analytics.</p>
+      </footer>
     </>
   )
 }
