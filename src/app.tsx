@@ -1,12 +1,13 @@
 import { useState } from 'preact/hooks'
 import './app.css'
 import DocxToHtml from './DocxToHtml'
+import { h } from 'preact'
 
 export function App() {
   const [activeApp, setActiveApp] = useState('app')
 
-  const handleAppChange = (event) => {
-    setActiveApp(event.target.value)
+  const handleAppChange = (event: h.JSX.TargetedEvent<HTMLSelectElement, Event>) => {
+    setActiveApp(event.currentTarget.value)
   }
 
   var options = [
