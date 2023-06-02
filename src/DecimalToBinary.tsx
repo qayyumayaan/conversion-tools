@@ -6,58 +6,89 @@ export default function NumberConverter() {
   const [outputSystem, setOutputSystem] = useState('binary');
   const [convertedNumber, setConvertedNumber] = useState('');
 
-  const handleNumberChange = (e) => {
+  const handleNumberChange = (e: any) => {
     const value = e.target.value;
     setNumber(value);
     convertNumber(value);
   };
 
-  const convertNumber = (value) => {
+  const convertNumber = (value: string) => {
     let convertedValue = '';
 
-    if (inputSystem === 'binary') {
-      if (outputSystem === 'decimal') {
-        convertedValue = parseInt(value, 2).toString(10);
-      } else if (outputSystem === 'octal') {
-        convertedValue = parseInt(value, 2).toString(8);
-      } else if (outputSystem === 'hexadecimal') {
-        convertedValue = parseInt(value, 2).toString(16).toUpperCase();
-      }
-    } else if (inputSystem === 'decimal') {
-      if (outputSystem === 'binary') {
-        convertedValue = parseInt(value, 10).toString(2);
-      } else if (outputSystem === 'octal') {
-        convertedValue = parseInt(value, 10).toString(8);
-      } else if (outputSystem === 'hexadecimal') {
-        convertedValue = parseInt(value, 10).toString(16).toUpperCase();
-      }
-    } else if (inputSystem === 'octal') {
-      if (outputSystem === 'binary') {
-        convertedValue = parseInt(value, 8).toString(2);
-      } else if (outputSystem === 'decimal') {
-        convertedValue = parseInt(value, 8).toString(10);
-      } else if (outputSystem === 'hexadecimal') {
-        convertedValue = parseInt(value, 8).toString(16).toUpperCase();
-      }
-    } else if (inputSystem === 'hexadecimal') {
-      if (outputSystem === 'binary') {
-        convertedValue = parseInt(value, 16).toString(2);
-      } else if (outputSystem === 'decimal') {
-        convertedValue = parseInt(value, 16).toString(10);
-      } else if (outputSystem === 'octal') {
-        convertedValue = parseInt(value, 16).toString(8);
-      }
+    switch (inputSystem) {
+      case 'binary':
+        switch (outputSystem) {
+          case 'decimal':
+            convertedValue = parseInt(value, 2).toString(10);
+            break;
+          case 'octal':
+            convertedValue = parseInt(value, 2).toString(8);
+            break;
+          case 'hexadecimal':
+            convertedValue = parseInt(value, 2).toString(16).toUpperCase();
+            break;
+          default:
+            break;
+        }
+        break;
+      case 'decimal':
+        switch (outputSystem) {
+          case 'binary':
+            convertedValue = parseInt(value, 10).toString(2);
+            break;
+          case 'octal':
+            convertedValue = parseInt(value, 10).toString(8);
+            break;
+          case 'hexadecimal':
+            convertedValue = parseInt(value, 10).toString(16).toUpperCase();
+            break;
+          default:
+            break;
+        }
+        break;
+      case 'octal':
+        switch (outputSystem) {
+          case 'binary':
+            convertedValue = parseInt(value, 8).toString(2);
+            break;
+          case 'decimal':
+            convertedValue = parseInt(value, 8).toString(10);
+            break;
+          case 'hexadecimal':
+            convertedValue = parseInt(value, 8).toString(16).toUpperCase();
+            break;
+          default:
+            break;
+        }
+        break;
+      case 'hexadecimal':
+        switch (outputSystem) {
+          case 'binary':
+            convertedValue = parseInt(value, 16).toString(2);
+            break;
+          case 'decimal':
+            convertedValue = parseInt(value, 16).toString(10);
+            break;
+          case 'octal':
+            convertedValue = parseInt(value, 16).toString(8);
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        break;
     }
 
     setConvertedNumber(convertedValue);
   };
 
-  const handleInputSystemChange = (e) => {
+  const handleInputSystemChange = (e: any) => {
     setInputSystem(e.target.value);
     convertNumber(number);
   };
 
-  const handleOutputSystemChange = (e) => {
+  const handleOutputSystemChange = (e: any) => {
     setOutputSystem(e.target.value);
     convertNumber(number);
   };
