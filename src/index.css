@@ -82,3 +82,35 @@ input[type=file] {
     color: #213547;
   }
 }
+
+select {
+  display: inline-block;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.8em 1.4em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  /* text-align: center; */
+  line-height: 1.5;
+}
+
+select:hover {
+  border-color: #646cff;
+}
+
+select:focus,
+select:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  select {
+    background-color: #f9f9f9;
+    color: #213547;
+  }
+}
