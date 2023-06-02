@@ -3,6 +3,7 @@ import './app.css'
 import { h } from 'preact'
 import DocxToHtml from './DocxToHtml'
 import Template from './Template'
+import DecimalToBinary from './DecimalToBinary'
 
 
 export function App() {
@@ -49,6 +50,8 @@ export function App() {
               return <DocxToHtml />;
             case 'template':
               return <Template />;
+            case 'DecimalToBinary':
+              return <DecimalToBinary />
           }
         } else {
           return null;
