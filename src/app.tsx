@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'preact/hooks'
 import './app.css'
-import DocxToHtml from './DocxToHtml'
 import { h } from 'preact'
+import DocxToHtml from './DocxToHtml'
+import Template from './Template'
+
 
 export function App() {
   const [activeApp, setActiveApp] = useState('app');
@@ -40,9 +42,18 @@ export function App() {
 
       {activeApp === 'app' ? (
         <p>Use this tool to convert a number of items for free. No uploaded files are collected.</p>
-      ) : (
-        <DocxToHtml />
-      )}
+      ) : options.map((option) => {
+        if (activeApp === option.key) {
+          switch (option.key) {
+            case 'DocxToHtml':
+              return <DocxToHtml />;
+            case 'template':
+              return <Template />;
+          }
+        } else {
+          return null;
+        }
+      })}
 
       <div className="card">
         <div className="app-switcher">
