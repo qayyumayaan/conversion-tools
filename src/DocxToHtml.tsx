@@ -1,35 +1,46 @@
 import { useState } from 'preact/hooks'
 import mammoth from 'mammoth'
 import pretty from 'pretty'
+import { h } from 'preact'
 
 export default function DocxToHtml() {
   const [htmlContent, setHtmlContent] = useState('')
   const [prettyHtml, setPrettyHtml] = useState('')
   const [showPretty, setShowPretty] = useState(true)
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0]
-    const fileReader = new FileReader()
-
+  const handleFileChange = async (event: h.JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    const file = event.currentTarget.files?.[0];
+    if (!file) {
+      console.error('No file selected');
+      return;
+    }
+  
+    const fileReader = new FileReader();
+  
     fileReader.onload = async (e) => {
-      const arrayBuffer = e.target.result
-
-      try {
-        const result = await mammoth.convertToHtml({ arrayBuffer })  
-        const html = result.value 
-        setHtmlContent(html)
-        setPrettyHtml(pretty(html))
-      } catch (error) {
-        console.error('Error converting file:', error)
+      const arrayBuffer = e.target?.result;
+      if (!arrayBuffer) {
+        console.error('Error reading file: Array buffer is null');
+        return;
       }
-    }
-
+  
+      try {
+        const result = await mammoth.convertToHtml({ arrayBuffer: arrayBuffer as ArrayBuffer });
+        const html = result.value;
+        setHtmlContent(html);
+        setPrettyHtml(pretty(html));
+      } catch (error) {
+        console.error('Error converting file:', error);
+      }
+    };
+  
     fileReader.onerror = (e) => {
-      console.error('Error reading file:', e.target.error)
-    }
-
-    fileReader.readAsArrayBuffer(file)
-  }
+      console.error('Error reading file:', e.target?.error);
+    };
+  
+    fileReader.readAsArrayBuffer(file);
+  };
+  
 
   return (
     <>
