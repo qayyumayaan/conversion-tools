@@ -1,16 +1,10 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 
 export default function NumberConverter() {
   const [number, setNumber] = useState('');
   const [inputSystem, setInputSystem] = useState('decimal');
   const [outputSystem, setOutputSystem] = useState('binary');
   const [convertedNumber, setConvertedNumber] = useState('');
-
-  const handleNumberChange = (e: any) => {
-    const value = e.target.value;
-    setNumber(value);
-    convertNumber(value);
-  };
 
   const convertNumber = (value: string) => {
     let convertedValue = '';
@@ -83,25 +77,38 @@ export default function NumberConverter() {
     setConvertedNumber(convertedValue);
   };
 
+  const handleNumberChange = (e: any) => {
+    const value = e.target.value;
+    setNumber(value);
+  };
+
   const handleInputSystemChange = (e: any) => {
     setInputSystem(e.target.value);
-    convertNumber(number);
   };
 
   const handleOutputSystemChange = (e: any) => {
     setOutputSystem(e.target.value);
-    convertNumber(number);
   };
+
+  const handleKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      convertNumber(number);
+    }
+  };
+
+  useEffect(() => {
+    convertNumber(number);
+  }, [number, inputSystem, outputSystem]);
 
   return (
     <>
       <p>Template description.</p>
       <div>
-        <label>Number:</label>
-        <input type="text" value={number} onChange={handleNumberChange} />
+        <label>Number: </label>
+        <input type="text" value={number} onChange={handleNumberChange} onKeyPress={handleKeyPress} />
       </div>
       <div>
-        <label>Input System:</label>
+        <label>Input System: </label>
         <select value={inputSystem} onChange={handleInputSystemChange}>
           <option value="binary">Binary</option>
           <option value="decimal">Decimal</option>
@@ -110,7 +117,7 @@ export default function NumberConverter() {
         </select>
       </div>
       <div>
-        <label>Output System:</label>
+        <label>Output System: </label>
         <select value={outputSystem} onChange={handleOutputSystemChange}>
           <option value="binary">Binary</option>
           <option value="decimal">Decimal</option>
@@ -119,7 +126,7 @@ export default function NumberConverter() {
         </select>
       </div>
       <div>
-        <label>Converted Number:</label>
+        <label>Converted Number: </label>
         <input type="text" value={convertedNumber} readOnly />
       </div>
     </>
