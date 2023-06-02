@@ -2,7 +2,7 @@ import { useState, useEffect } from 'preact/hooks'
 import './app.css'
 import { h } from 'preact'
 import DocxToHtml from './DocxToHtml'
-import Template from './Template'
+// import Template from './Template'
 import NumberConverter from './NumberConverter'
 
 
@@ -29,7 +29,7 @@ export function App() {
   var options = [
     { key: 'app', title: 'Conversion Tools' },
     { key: 'DocxToHtml', title: 'DOCX to HTML' },
-    { key: 'template', title: 'Template'},
+    // { key: 'template', title: 'Template'},
     { key: 'NumberConverter', title: 'Number Converter'},
   ];
 
@@ -48,8 +48,8 @@ export function App() {
           switch (option.key) {
             case 'DocxToHtml':
               return <DocxToHtml />;
-            case 'template':
-              return <Template />;
+            // case 'template':
+            //   return <Template />;
             case 'NumberConverter':
               return <NumberConverter />
           }
