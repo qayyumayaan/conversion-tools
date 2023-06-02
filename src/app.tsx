@@ -48,10 +48,9 @@ export function App() {
         <div className="app-switcher">
           <label htmlFor="app-select">Select App: </label>
           <select id="app-select" style={{ width: `${selectWidth}px` }} value={activeApp} onChange={handleAppChange}>
-            <option value="app">Home</option>
-            <option value="DocxToHtml">Docx to HTML</option>
-            <option value="template">Template</option>
-            <option value="DecimalToBinary">Decimal To Binary</option>
+            {options.map(option => (
+              <option key={option.key} value={option.key}>{option.title}</option>
+            ))}
           </select>
         </div>
       </div>
