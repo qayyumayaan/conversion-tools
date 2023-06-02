@@ -108,6 +108,11 @@ export default function NumberConverter() {
         <input type="text" value={number} onChange={handleNumberChange} onKeyPress={handleKeyPress} />
       </div>
       <div>
+        <label>Converted: </label>
+        <input type="text" value={convertedNumber} readOnly />
+      </div>
+        <p></p>
+      <div>
         <label>Input System: </label>
         <select value={inputSystem} onChange={handleInputSystemChange}>
           <option value="binary">Binary</option>
@@ -125,10 +130,7 @@ export default function NumberConverter() {
           <option value="hexadecimal">Hexadecimal</option>
         </select>
       </div>
-      <div>
-        <label>Converted Number: </label>
-        <input type="text" value={convertedNumber} readOnly />
-      </div>
+
     </>
   );
 }
